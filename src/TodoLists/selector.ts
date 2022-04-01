@@ -17,3 +17,19 @@ export const filteredTodoListState = selector({
         }
     },
 });
+
+export const todoListStats = selector({
+    key: 'todoListStats',
+    get: ({get}) => {
+        const lists = get(todoListState);
+        const todoNum = lists.length;
+        const completedNum = lists.filter(list => list.completed).length;
+        const uncompletedNum = lists.filter(list => !list.completed).length;
+        
+        return {
+            todoNum,
+            completedNum,
+            uncompletedNum,
+        }
+    }
+})

@@ -2,6 +2,7 @@ import React from 'react';
 import AddTodo from './AddTodo';
 import TodoView from './TodoView';
 import TodoFilter from './TodoFilter';
+import TodoProgress from './TodoProgress';
 import './TodoList.css';
 
 export default function TodoList(): React.ReactElement {
@@ -12,7 +13,7 @@ export default function TodoList(): React.ReactElement {
             <AddTodo />
             <header className="todoListHeadning">
                 <h3>Todo</h3>
-                {/* <TodoProgress store={listStore} /> */}
+                <TodoProgress />
             </header>
             <TodoFilter />
             <TodoView />
