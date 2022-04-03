@@ -11,30 +11,27 @@ export default function TodoItem({item}: Props): React.ReactElement {
     const index = todoList.findIndex((listItem) => listItem === item);
     
     const onToggleComplete = () => {
-        // [items behind, updated current items, items after]
-        const newList = [
-            ...todoList.slice(0, index),
+        const newList = replaceItemAtIndex(
+            todoList,
             {
                 ...item,
                 completed: !item.completed,
             },
-            ...todoList.slice(index + 1),
-        ];
+            index,
+        );
         setTodoList(newList);
     }
     
     const onEditTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        
-        // [items behind, updated current items, items after]
-        const newList = [
-            ...todoList.slice(0, index),
+        const newList = replaceItemAtIndex(
+            todoList,
             {
                 ...item,
                 title: value,
             },
-            ...todoList.slice(index + 1),
-        ];
+            index,
+        );
         setTodoList(newList);
     }
     
@@ -57,4 +54,12 @@ export default function TodoItem({item}: Props): React.ReactElement {
             </li>
         </>
     );
+}
+
+function replaceItemAtIndex(list: TodoType[], newItem: TodoType, index: number) {
+    return [
+        ...list.slice(0, index),
+        newItem,
+        ...list.slice(index + 1),
+    ];
 }
