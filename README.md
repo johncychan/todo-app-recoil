@@ -1,5 +1,5 @@
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using [Recoil](https://recoiljs.org/)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), experimenting with [Recoil](https://recoiljs.org/) as state management
 
 ## Available Scripts
 
