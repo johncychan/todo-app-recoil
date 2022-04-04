@@ -1,13 +1,14 @@
 import React from 'react';
 import { TodoType } from './todoTypes';
-import useTodoList from './useTodoList';
+import { useRecoilState } from "recoil";
+import { todoListState } from "./atom";
 
 interface Props {
     item: TodoType;
 }
 
 export default function TodoItem({item}: Props): React.ReactElement {
-    const { todoList, setTodoList } = useTodoList(); // this is a custom hook, see useTodoList.ts for details
+    const [todoList, setTodoList] = useRecoilState(todoListState); 
     const index = todoList.findIndex((listItem) => listItem === item);
     
     const onToggleComplete = () => {
