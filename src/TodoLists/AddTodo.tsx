@@ -1,22 +1,13 @@
 import React, { useState }  from 'react';
-import { useSetRecoilState } from 'recoil';
-import { todoListState } from './atom';
-import { v4 as uuidv4 } from 'uuid';
+import { useTodos } from './todoList.hook';
 
 export default function AddTodo(): React.ReactElement {
-    const setTodoList = useSetRecoilState(todoListState);
+    const { addListItem } = useTodos();
     
     const [value, setValue] = useState<string>('');
     
     const addItem = () => {
-        setTodoList((oldTodoList) => [
-            ...oldTodoList,
-            {
-                id: uuidv4(),
-                title: value,
-                completed: false,
-            }
-        ]);
+        addListItem(value);
         setValue('');
     }
     

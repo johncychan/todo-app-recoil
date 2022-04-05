@@ -1,47 +1,24 @@
 import React from 'react';
 import { TodoType } from './todoTypes';
-import { useRecoilState } from "recoil";
-import { todoListState } from "./atom";
+import { useTodos } from './todoList.hook';
 
 interface Props {
     item: TodoType;
 }
 
 export default function TodoItem({item}: Props): React.ReactElement {
-    const [todoList, setTodoList] = useRecoilState(todoListState); 
-    const index = todoList.findIndex((listItem) => listItem === item);
+    const { editItemTitle, toggleItemCompletion, removeItem } = useTodos();
     
     const onToggleComplete = () => {
-        const newList = replaceItemAtIndex(
-            todoList,
-            {
-                ...item,
-                completed: !item.completed,
-            },
-            index,
-        );
-        setTodoList(newList);
+        toggleItemCompletion(item.id);
     }
     
     const onEditTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        const newList = replaceItemAtIndex(
-            todoList,
-            {
-                ...item,
-                title: value,
-            },
-            index,
-        );
-        setTodoList(newList);
+        editItemTitle(event.target.value, item.id);
     }
     
     const onRemove = () => {
-        const newList = [
-            ...todoList.slice(0, index),
-            ...todoList.slice(index + 1),
-        ];
-        setTodoList(newList);
+        removeItem(item.id);
     }
     
     return (
@@ -55,12 +32,4 @@ export default function TodoItem({item}: Props): React.ReactElement {
             </li>
         </>
     );
-}
-
-function replaceItemAtIndex(list: TodoType[], newItem: TodoType, index: number) {
-    return [
-        ...list.slice(0, index),
-        newItem,
-        ...list.slice(index + 1),
-    ];
 }
